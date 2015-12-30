@@ -1,0 +1,60 @@
+***********************************
+* RELTRAD Sorting Do-File         *
+* Project: Dissertation           *
+* Date 3/3/10                     *
+* Author: Ryan Burge              *
+***********************************
+
+
+use "C:\Documents and Settings\Ryan.RYAN-53ED2C6416\Desktop\2004GSSreltrad.dta" 
+
+/* Creating Attendance Measure */
+
+gen attnd = attend
+recode attnd 7/8=1 else=0
+
+gen attnd2 = attend
+recode attnd2 5/8=1 else=0
+
+
+/* Creating Literalism Measure */
+
+gen literal = bible
+recode literal 1=1 else=0 
+
+gen literaltop2 = bible 
+recode literaltop2 1/2=1 else=0
+
+gen inspired = bible
+recode inspired 2=1 else=0
+
+gen fables = bible
+recode fables 3=1 else=0
+
+/* Recoding Controls */
+
+
+gen newage = age
+recode newage 18/29=1 30/44=2 45/54=3 55/64=4 65/99=5
+
+gen neweduc = educ
+recode neweduc 0/7=1 8=2 9/11=3 12=4 13/15=5 16=6 17/20=7
+
+gen year02 = year
+recode year02 2002=1 else=0
+gen year04 = year
+recode year04 2004=1 else=0
+gen year06 = year
+recode year06 2006=1 else=0
+
+gen south = region
+recode south 5/7 =1 else=0
+
+gen prestige = prestg80
+recode prestige 17/25=1 26/36=2 37/46=3 47/56=4 57/66=5 67/76=6 77/86=7  
+
+gen male = sex
+recode male 1=1 else=0
+
+gen white = race
+recode white 1=1 else=0
