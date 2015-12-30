@@ -1,0 +1,136 @@
+***********************************
+* Full Matching Routine           *
+* Project: Dissertation           *
+* Date 3/3/10                     *
+* Author: Ryan Burge              *
+***********************************
+
+
+/* Matching on Evangelical*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 evangelical literal attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance evangelical literal attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+pstest evangelical literal attnd newage prestige marital partyid neweduc male white south childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape, sum
+
+drop  random _pscore _treated _support _weight _tolerance
+
+/* Matching on Literal*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 literal evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrap, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance literal evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+drop  random _pscore _treated _support _weight _tolerance
+
+/* Matching on Top 2 Categories of Literal*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 literal2 evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrap, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance literal2 evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+drop  random _pscore _treated _support _weight _tolerance
+
+/* Matching on Inspired Categories of Literal*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 literal3 evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrap, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance literal3 evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+drop  random _pscore _treated _support _weight _tolerance
+
+
+
+/* Matching on Attendance*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 attnd literal evangelical newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrap, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance attnd literal evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+drop  random _pscore _treated _support _weight _tolerance
+
+/* Matching on More Permissive Attendance*/
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 attnd2 literal evangelical newage prestige marital partyid neweduc male white south ///
+ childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrap, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance attnd2 literal evangelical attnd newage prestige marital partyid neweduc male white south ///
+childs year04 year06 pray prayer relexp relexper marhomo homosex reborn suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+/* Randomize the order of the Data */
+set seed 32306
+gen random =uniform()*100
+
+/* Sort Data based on random # */
+sort random
+
+psmatch2 lll evangelical attnd newage income class marital race partyid neweduc sex childs year02 year04 year06 pray prayer suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape, outcome(tolerance) ///
+kernel kerneltype(normal) quietly ate common trim(5) caliper(0.06)
+
+regress tolerance lll evangelical attnd newage income class marital race partyid neweduc sex childs year02 year04 year06 pray prayer suicide1 suicide2 suicide3 abnomore abpoor abdefect abrape [iw=_weight] if _support==1
+
+essto
+
+esttab using literal5.tex, label p(2) title(Inspired vs. All Else\label{tab1})
+
+
+
