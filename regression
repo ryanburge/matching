@@ -1,0 +1,9 @@
+eststo, title("Model 1"): quietly regress tolerance attnd male white newage neweduc prestige year02 year04 year06
+
+eststo, title("Model 2"): quietly regress tolerance literal male white newage neweduc prestige year02 year04 year06
+
+eststo, title("Model 3"): quietly regress tolerance evangelical male white newage neweduc prestige year02 year04 year06
+
+eststo, title("Model 4"): quietly regress tolerance attnd literal evangelical male white newage neweduc prestige year02 year04 year06
+
+esttab using test2.tex, se(2) b(2) ar2(3) starlevels(* 0.05) label
